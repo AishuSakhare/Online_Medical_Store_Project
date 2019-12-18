@@ -1,0 +1,17 @@
+package com.capgemini.medicalboot.service;
+
+import java.util.List;
+
+import com.capgemini.medicalboot.bean.CartBean;
+
+public interface CartService {
+
+	public List<CartBean> viewCartProduct(CartBean cartBean);
+
+	public CartBean addProductToCart(CartBean cartBean);
+
+	public boolean deleteProductFromCart(int cartId);
+
+	public CartBean orderProduct(CartBean cartBean);
+
+}// End of interface

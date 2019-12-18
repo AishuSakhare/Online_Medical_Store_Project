@@ -1,0 +1,11 @@
+@tag
+Feature: Testing the login feature
+
+
+  @tag1
+  Scenario Outline: Verification of Login functionality
+    Given Open the chrome and launch the application
+    When Enter the valid email 
+    When Enter the valid password 
+    And click on login button
+    Then the dashboard page must be displayed

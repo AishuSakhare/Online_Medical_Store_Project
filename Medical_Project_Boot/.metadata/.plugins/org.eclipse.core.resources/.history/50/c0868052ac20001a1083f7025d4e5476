@@ -1,0 +1,26 @@
+@tag 
+Feature: Testing the login feature 
+
+
+@tag1 
+Scenario: Verification of Login functionality And Add the product
+	Given Open the chrome and launch the application 
+	When Enter the valid email 
+	When Enter the valid password 
+	And click on login button 
+	Then the ProductList page must be displayed 
+	When Click on add Product link. 
+	When add all the Product information avaliable. 
+	Then It add present product details. 
+	
+@tag1 
+Scenario:  Update and delete product from product list
+	Given Open the chrome and launch the application 
+	When Enter the valid email 
+	When Enter the valid password 
+	And click on login button 
+	Then the ProductList page must be displayed 
+	When Click on update button
+	When add all updated the Product information avaliable. 
+	Then It will add updated product details. 
+	Then Click on Cross Link

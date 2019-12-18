@@ -1,0 +1,9 @@
+@tag
+Feature: Testing the login feature
+
+
+  @tag1
+  Scenario Outline: Verification of Login functionality
+    Given Open the chrome and launch the application
+    When Enter the valid email and password and click on login button
+    Then Login successful else error

@@ -1,0 +1,126 @@
+package com.capgemini.medicalboot.daoImpl;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.medicalboot.bean.AdminUserBean;
+import com.capgemini.medicalboot.bean.CartBean;
+import com.capgemini.medicalboot.bean.ProductBean;
+import com.capgemini.medicalboot.dao.CartDao;
+
+@Repository
+public class CartDaoImpl implements CartDao {
+
+	@PersistenceUnit
+	private EntityManagerFactory emf;
+
+	@Override
+	public List<CartBean> viewCartProduct(CartBean cartBean) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		String jpql = "from CartBean where id=:id";
+
+		et.begin();
+		Query que = em.createQuery(jpql);
+		int id = cartBean.getId();
+		que.setParameter("id", id);
+		List<CartBean> cartList = null;
+		cartList = que.getResultList();
+
+		et.commit();
+		return cartList;
+	}// End of viewCartProduct()
+
+	@Override
+	public CartBean addProductToCart(CartBean cartBean) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+
+		AdminUserBean adminuserBean = null;
+		ProductBean productBean = null;
+
+		et.begin();
+
+		String jpql = "from AdminUserBean where id=:id";
+		Query q = em.createQuery(jpql);
+
+		int id = cartBean.getId();
+		q.setParameter("id", id);
+		adminuserBean = (AdminUserBean) q.getSingleResult();
+
+		String email = adminuserBean.getEmail();
+
+		cartBean.setEmail(email); // ..........................1...email
+		cartBean.setId(id); // ..........................2.....id
+
+		String productName = cartBean.getProductName();
+		String jpql2 = "from ProductBean where productName=:productName";
+		Query q2 = em.createQuery(jpql2);
+		q2.setParameter("productName", productName);
+		productBean = (ProductBean) q2.getSingleResult();
+		cartBean.setProductName(productName);// ........................3....productName
+
+		double productPrice = productBean.getProductPrice();
+		cartBean.setProductPrice(productPrice);// ........................4.....productPrice
+
+		int productId = productBean.getProductId();
+		cartBean.setProductId(productId);// ..........................5...productId
+
+		String productDescription = productBean.getProductDescription();
+		cartBean.setProductDescription(productDescription);
+
+		String productCategory = productBean.getProductCategory();
+		cartBean.setProductCategory(productCategory);
+
+		int productQuantity = cartBean.getProductQuantity();
+		cartBean.setProductQuantity(productQuantity);
+		try {
+
+			em.persist(cartBean);
+			et.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		em.close();
+		return cartBean;
+
+	}// End of addProductToCart()
+
+	@Override
+	public boolean deleteProductFromCart(int cartId) {
+		EntityManager em = emf.createEntityManager();
+		boolean isDeleted = false;
+		try {
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			//String jpql = "delete from CartBean where productName=:productName AND id=:id";
+			Query que = em.createQuery(jpql);
+			//que.setParameter("productName", cartBean.getProductName());
+			//que.setParameter("id", cartBean.getId());
+			int result = que.executeUpdate();
+			tx.commit();
+			isDeleted = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		em.close();
+		return isDeleted;
+
+	}// End of deleteProductFromCart()
+
+	@Override
+	public CartBean orderProduct(CartBean cartBean) {
+		return null;
+	}// End of orderProduct()
+}
