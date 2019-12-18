@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile No</th>
+                <th>Password</th>
+                <th>Address</th>
+                <th>Delete</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let u of allUsers'>
+                <td>{{u.name}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.mobileno}}</td>
+                <td>{{u.password}}</td>
+                <td>{{u.address}}</td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="deleteUser(u)">
+                        Delete
+                    </button>
+                </td>
+                            
+            </tr>
+        </tbody>
+    </table>
+</div>

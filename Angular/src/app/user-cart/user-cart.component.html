@@ -1,0 +1,126 @@
+<div class="container mt-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>productName</th>
+                <th>productPrice</th>
+                <th>productCategory</th>
+                <th>productDescription</th>
+                <th>productQuantity</th>
+                <th>Buy Product</th>
+                <th>Delete Product </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let c of carts'>
+                <td>{{c.productName}}</td>
+                <td>{{c.productPrice}}</td>
+                <td>{{c.productCategory}}</td>
+                <td>{{c.productDescription}}</td>
+                <td>{{c.productQuantity}}</td>
+                <td> 
+                    <!-- <button class="btn btn-outline-dark">
+                        Buy
+                    </button> -->
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"
+                        (click)="selectProduct(c)">
+                        Buy
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Buy Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        (click)="userService.getCartData()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form code -->
+                                    <div class="card card-body border border-dark">
+                                        <form>
+                                            <!-- 
+                                            <input type="hidden" name="productId" #productId='ngModel'
+                                                [(ngModel)]='selectedProduct.productId'>
+
+                                            <input type="hidden" name="productName" #productName='ngModel'
+                                                [(ngModel)]='selectedProduct.productName'> -->
+
+                                            <div class="form-group">
+                                                <label for="productName">
+                                                    productName: {{c.productName}}
+                                                </label>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="productQuantity">
+                                                    productQuantity: {{c.productQuantity}}
+                                                </label>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="productPrice">
+                                                    productPrice: {{c.productPrice*c.productQuantity}}
+                                                    <!-- {{totalBill}} -->
+                                                
+                                                </label>
+                                            </div>
+
+                                            <!--                                             
+
+                                            <input type="hidden" name="productCategory" #productCategory='ngModel'
+                                                [(ngModel)]='selectedProduct.productCategory'>
+
+                                            <input type="hidden" name="productDescription" #productDescription='ngModel'
+                                                [(ngModel)]='selectedProduct.productDescription'>
+
+                                            <input type="hidden" name="productPrice" #productPrice='ngModel'
+                                                [(ngModel)]='selectedProduct.productPrice'>
+
+                                            <input type="hidden" name="productQuantity" #productQuantity='ngModel'
+                                                [(ngModel)]='selectedProduct.productQuantity'>
+
+                                            <input type="hidden" name="id" #id='ngModel' [(ngModel)]='selectedProduct.id'>
+
+                                            <input type="hidden" name="email" #email='ngModel'
+                                                [(ngModel)]='selectedProduct.email'>
+
+                                            <input type="hidden" name="cartId" #cartId='ngModel'
+                                                [(ngModel)]='selectedProduct.cartId'>
+                                            <input type="hidden" name="orderId" #orderId='ngModel'
+                                                [(ngModel)]='selectedProduct.orderId'> -->
+
+                                            <div class="btn-group float-right">
+
+                                                <button class="btn btn-outline-dark" type="submit"
+                                                    (click)="addProductToOrderList(c)">
+                                                    Pay
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <!-- form code -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="deleteProductFromCart(c)">
+                        Delete
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

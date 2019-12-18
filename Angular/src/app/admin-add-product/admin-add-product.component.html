@@ -1,0 +1,100 @@
+<div class="col-md-4 offset-md-4 mt-5 card card-body border border-dark">
+    <form #addProduct='ngForm' (ngSubmit)='submitForm(addProduct)'>
+        <!--    -->
+        <div class="form-group">
+            <label for="productName">
+                product Name:
+            </label>
+            <input type="text" name="productName" class="form-control" #productName="ngModel"
+            pattern="^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$" ngModel required>
+            <div *ngIf='productName.touched && productName.invalid'>
+                <p class="alert alert-danger" *ngIf='productName.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='productName.errors.pattern'>
+                    please enter valid name
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="productCategory">
+                product Category:
+            </label>
+            <input type="text" name="productCategory" class="form-control" #productCategory="ngModel"
+                pattern="[a-zA-Z][a-zA-Z ]{2,}" ngModel required>
+            <div *ngIf='productCategory.touched && productCategory.invalid'>
+                <p class="alert alert-danger" *ngIf='productCategory.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='productCategory.errors.pattern'>
+                    please enter valid category.. category not cantain numbers
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="productDescription">
+                product Description: 
+            </label>
+            <input type="text" name="productDescription" class="form-control" #productDescription="ngModel" ngModel
+                pattern="/^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$" required>
+            <div *ngIf='productDescription.touched && productDescription.invalid'>
+                <p class="alert alert-danger" *ngIf='productDescription.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='productDescription.errors.pattern'>
+                    please enter valid Description
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="productQuantity">
+                product Quantity:
+            </label>
+            <input type="number" name="productQuantity" class="form-control" #productQuantity="ngModel" ngModel
+            pattern = "[1-9][0-9]{0,4}"   required>
+            <div *ngIf='productQuantity.touched && productQuantity.invalid'>
+                <p class="alert alert-danger" *ngIf='productQuantity.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='productQuantity.errors.pattern'>
+                    please enter valid Quantity
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="productPrice">
+                product Price:
+            </label>
+            <input type="number" name="productPrice" class="form-control" #productPrice="ngModel"
+            pattern="^[1-9]\d*(\.\d+)?$" ngModel required>
+            <div *ngIf='productPrice.touched && productPrice.invalid'>
+                <p class="alert alert-danger" *ngIf='productPrice.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='productPrice.errors.pattern'>
+                    please enter valid Price
+                </p>
+            </div>
+        </div>
+
+
+        <div class="btn-group float-right">
+            <button class="btn btn-outline-dark" type="reset">
+                Reset
+            </button>
+            &nbsp;&nbsp;
+            <button class="btn btn-outline-dark" type="submit" [disabled]='addProduct.invalid'>
+                Add
+            </button>
+        </div>
+
+        <div class="alert alert-danger" *ngIf='backendRespnse'>
+            {{backendRespnse.description}}
+        </div>
+
+    </form>
+</div>

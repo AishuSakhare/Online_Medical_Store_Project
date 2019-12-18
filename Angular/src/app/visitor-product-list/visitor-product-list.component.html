@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>price</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let p of products'>
+                <td>{{p.productName}}</td>
+                <td>{{p.productPrice}}</td>
+                <td>{{p.productCategory}}</td>
+                <td>{{p.productDescription}}</td>
+                <td>{{p.productQuantity}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

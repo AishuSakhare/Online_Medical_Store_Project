@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-dark">
+
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active" *ngIf='!isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/">Home </a>
+            </li>
+
+            <li class="nav-item" *ngIf='!isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/visitor-product-list">Our Products</a>
+            </li>
+            <li class="nav-item" *ngIf='!isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/contact-us">About Us</a>
+            </li>
+            <li class="nav-item active " *ngIf='isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/admin-profile">Profile</a>
+            </li>
+            <li class="nav-item active " *ngIf='isAdmin() && isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/admin-product-list">Product List</a>
+            </li>
+            <li class="nav-item active " *ngIf='isAdmin() && isLoggedIn()'>
+                <a id="admin-add-product" class="nav-link text-light" routerLink="/admin-add-product">Add Product</a>
+            </li>
+            
+            <li class="nav-item active " *ngIf='isAdmin() && isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/user-list">User List</a>
+            </li>
+            <li class="nav-item active " *ngIf='isAdmin() && isLoggedIn()'>
+                <a class="nav-link text-light" id="admin-discussion-board" routerLink="/admin-discussion-board">Discussion Board</a>
+            </li>
+            <li class="nav-item active " *ngIf='isUser()&& isLoggedIn()'>
+                <a class="nav-link text-light" id="user-discussion-board" routerLink="/user-discussion-board">Discussion Board</a>
+            </li>
+            <li class="nav-item active " *ngIf='isUser() && isLoggedIn()'>
+                <a class="nav-link text-light" id="user-cart" routerLink="/user-cart">User Cart</a>
+            </li>
+            <li class="nav-item active " *ngIf='isUser() && isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/user-product-list">Product List</a>
+            </li>
+            <li class="nav-item active " *ngIf='isUser() && isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/user-order-history">Order history</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav float-right">
+            <li class="nav-item" *ngIf='!isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/login">login</a>
+            </li>
+            <li class="nav-item" *ngIf='!isLoggedIn()'>
+                <a class="nav-link text-light" routerLink="/register">register</a>
+            </li>
+            <li class="nav-item" *ngIf='isLoggedIn()'>
+                <button class="btn text-light" (click)="logout()">
+                    Logout
+                </button></li>
+        </ul>
+
+    </div>
+</nav>

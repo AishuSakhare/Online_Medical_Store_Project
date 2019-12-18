@@ -1,0 +1,89 @@
+<div class="container">
+    <h1>Any queries....</h1>
+    <hr>
+
+    <div style="float:left; width:450px; height: 500px;">
+        <img style="height: 430px;" src="https://cdn.pixabay.com/photo/2019/02/06/04/29/question-mark-3978394__340.jpg"
+            alt="">
+    </div>
+    <div style="float: right; width:550px; height: 500px;">
+        <div class="container " style="margin-top: 30px;">
+            <!-- <div class="col-md-4 offset-md-4 mt-4 card card-body border border-dark"> -->
+            <div>
+                <form #userQuestion="ngForm" (ngSubmit)="sendMessageToAdmin(userQuestion)">
+                    <div class="form-group">
+                        <label for="message">
+                            <h3>Write Message here...</h3>
+                        </label>
+                        <textarea rows="4" cols="25" class="form-control" style="height: 150px;" type="text"
+                            name="message" #message='ngModel' ngModel
+                            pattern="/^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$" required></textarea>
+                        <div *ngIf='message.touched && message.invalid'>
+                            <p class="alert alert-danger" *ngIf='message.errors.required'>
+                                This field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='message.errors.pattern'>
+                                please enter valid messsage
+                            </p>
+                        </div>
+                    </div>
+
+
+
+                    <button class="btn btn-outline-dark float-right" type="submit"  [disabled]='userQuestion.invalid'>
+                        Send
+
+                    </button>
+
+
+                </form>
+                <!-- Button trigger modal -->
+
+                <button type="button" class="btn btn-outline-dark float-right" data-toggle="modal"
+                    data-target="#exampleModal">
+                    See Reply
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Admin Reply</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    (click)="userService.getResponseData()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- form code -->
+                                <div class="card card-body border border-dark">
+
+                                    <div class="form-group">
+                                        <div *ngFor='let m of messages'>
+                                            <span class="input-group-text bg-light text-dark form-control">
+                                                {{m.message}}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- form code -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- </div>   -->
+        </div>
+
+
+    </div>
+
+</div>

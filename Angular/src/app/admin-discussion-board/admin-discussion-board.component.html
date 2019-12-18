@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Message</th>
+                <th>MessageType</th>
+                <th>User Email</th>
+               <th>Reply</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let m of messages'>
+                <td>{{m.message}}</td>
+                <td>{{m.messageType}}</td>
+                <td>{{m.email}}</td>
+              
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"
+                        (click)="selectMessage(m)">
+                        Reply
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Give Reply Here</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        (click)="userService.getMessageData()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form code -->
+                                    <div class="card card-body border border-dark">
+                                        <form #giveReply='ngForm' (ngSubmit)='giveReplyForm(giveReply)'>
+                                            <input type="hidden" name="id" #id='ngModel' [(ngModel)]='selectedMessage.id'>
+                                            <input type="hidden" name="email" #email='ngModel' [(ngModel)]='selectedMessage.email'>
+                                            <div class="form-group">
+                                                <label for="message">
+                                                    message:
+                                                </label>
+                                                <input type="text" name="message" class="form-control"
+                                                 #message="ngModel" ngModel  required>
+                                                 <div *ngIf='message.touched && message.invalid'>
+                                                    <p class="alert alert-danger" *ngIf='message.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                
+                                                </div>
+                                            </div>
+                                    
+                                    
+                                                                          
+                                    
+                                            <div class="btn-group float-right">
+                                                <button  class="btn btn-outline-dark" type="reset">
+                                                    Reset
+                                                </button>
+                                                &nbsp;&nbsp;
+                                                <button  class="btn btn-outline-dark" type="submit" [disabled]='giveReply.invalid'>
+                                                Send
+                                                </button>
+                                            </div>
+                                    
+                                        </form>
+                                    </div>  
+                                     <!-- form code -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

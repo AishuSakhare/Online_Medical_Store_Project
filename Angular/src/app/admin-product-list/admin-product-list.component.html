@@ -1,0 +1,172 @@
+<div class="container mt-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>price</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let p of products'>
+                <td>{{p.productName}}</td>
+                <td>{{p.productPrice}}</td>
+                <td>{{p.productCategory}}</td>
+                <td>{{p.productDescription}}</td>
+                <td>{{p.productQuantity}}</td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="deleteProduct(p)">
+                        Delete
+                    </button>
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"
+                        (click)="selectProduct(p)">
+                        Update
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        (click)="productService.getData()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form code -->
+                                    <div class="card card-body border border-dark">
+                                        <form #updateProduct='ngForm' (ngSubmit)='submitForm(updateProduct)'>
+                                            <input type="hidden" name="productId" #productId='ngModel'
+                                                [(ngModel)]='selectedProduct.productId'>
+                                            <div class="form-group">
+                                                <label for="productName">
+                                                    product Name:
+                                                </label>
+                                                <input type="text" name="productName" class="form-control"
+                                                    #productName="ngModel" ngModel
+                                                    [(ngModel)]="selectedProduct.productName"
+                                                    pattern="/^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$">
+                                                <div *ngIf='productName.touched && productName.invalid'>
+                                                    <p class="alert alert-danger" *ngIf='productName.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                    <p class="alert alert-danger" *ngIf='productName.errors.pattern'>
+                                                        please enter valid name
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="productCategory">
+                                                    product Category:
+                                                </label>
+                                                <input type="text" name="productCategory" class="form-control"
+                                                    #productCategory="ngModel" ngModel
+                                                    [(ngModel)]="selectedProduct.productCategory"
+                                                    pattern="[a-zA-Z][a-zA-Z ]{2,}">
+                                                <div *ngIf='productCategory.touched && productCategory.invalid'>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productCategory.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productCategory.errors.pattern'>
+                                                        please enter valid category.. category not cantain numbers
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="productDescription">
+                                                    product Description:
+                                                </label>
+                                                <input type="text" name="productDescription" class="form-control"
+                                                    #productDescription="ngModel" ngModel
+                                                    [(ngModel)]="selectedProduct.productDescription"
+                                                    pattern="/^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$">
+                                                <div *ngIf='productDescription.touched && productDescription.invalid'>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productDescription.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productDescription.errors.pattern'>
+                                                        please enter valid Description
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="productQuantity">
+                                                    product Quantity:
+                                                </label>
+                                                <input type="number" name="productQuantity" class="form-control"
+                                                    #productQuantity="ngModel" ngModel
+                                                    [(ngModel)]="selectedProduct.productQuantity"
+                                                    pattern="[1-9][0-9]{0,4}">
+                                                <div *ngIf='productQuantity.touched && productQuantity.invalid'>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productQuantity.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                    <p class="alert alert-danger"
+                                                        *ngIf='productQuantity.errors.pattern'>
+                                                        please enter valid Quantity
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="productPrice">
+                                                    product Price:
+                                                </label>
+                                                <input type="number" name="productPrice" class="form-control"
+                                                    #productPrice="ngModel" ngModel id="price"
+                                                    [(ngModel)]="selectedProduct.productPrice"
+                                                    pattern="^[1-9]\d*(\.\d+)?$">
+                                                <div *ngIf='productPrice.touched && productPrice.invalid'>
+                                                    <p class="alert alert-danger" *ngIf='productPrice.errors.required'>
+                                                        This field is mandatory
+                                                    </p>
+                                                    <p class="alert alert-danger" *ngIf='productPrice.errors.pattern'>
+                                                        please enter valid Price
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="btn-group float-right">
+                                                <button class="btn btn-outline-dark" type="reset">
+                                                    Reset
+                                                </button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn btn-outline-dark" type="submit"
+                                                    [disabled]='updateProduct.invalid'>
+                                                    Update
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <!-- form code -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

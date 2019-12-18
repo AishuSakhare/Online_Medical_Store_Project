@@ -1,0 +1,212 @@
+<div class="col-md-4 offset-md-4 mt-5 card card-body border border-dark" *ngIf="singleUsers">
+    <form>
+        <div>
+            <div class="form-group">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-dark text-light">
+                            Name
+                        </span>
+                    </div>
+                    <span class="input-group-text bg-light text-dark form-control">
+                        {{singleUsers.name}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-dark text-light">
+                            Email
+                        </span>
+                    </div>
+                    <span class="input-group-text bg-light text-dark form-control">
+                        {{singleUsers.email}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-dark text-light">
+                            Mobile no
+                        </span>
+                    </div>
+                    <span class="input-group-text bg-light text-dark form-control">
+                        {{singleUsers.mobileno}}
+                    </span>
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-dark text-light">
+                            Password
+                        </span>
+                    </div>
+                    <span class="input-group-text bg-light text-dark form-control">
+                        {{singleUsers.password}}
+                    </span>
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-dark text-light">
+                            Address
+                        </span>
+                    </div>
+                    <span class="input-group-text bg-light text-dark form-control">
+                        {{singleUsers.address}}
+                    </span>
+                </div>
+
+
+            </div>
+
+
+            <!-- <button class="btn btn-outline-dark float-right" type="submit">
+                Update
+            </button> -->
+
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-dark float-right" data-toggle="modal"
+                data-target="#exampleModal">
+                Update
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                (click)="auth.getProfileData()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" *ngIf="singleUsers">
+                            <!-- form code -->
+                            <div class="card card-body border border-dark">
+                                <form #updateProfile='ngForm' (ngSubmit)='updateProfileForm(updateProfile)'>
+                                    <!-- <input type="hidden" name="id" #id='ngModel' ngModel> -->
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Name:
+                                        </label>
+                                        <input type="text" name="name" class="form-control" #name="ngModel"
+                                            [(ngModel)]="singleUsers.name"
+                                            pattern="^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$" required>
+                                        <div *ngIf='name.touched && name.invalid'>
+                                            <p class="alert alert-danger" *ngIf='name.errors.required'>
+                                                This field is mandatory
+                                            </p>
+                                            <p class="alert alert-danger" *ngIf='name.errors.pattern'>
+                                                Dont Start Name with Number or Special Charactrer </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">
+                                            email:
+                                        </label>
+                                        <input type="email" name="email" class="form-control" #email="ngModel"
+                                            [(ngModel)]="singleUsers.email" email required>
+                                        <div *ngIf='email.touched && email.invalid'>
+                                            <p class="alert alert-danger" *ngIf='email.errors.required'>
+                                                THis field is mandatory
+                                            </p>
+                                            <p class="alert alert-danger" *ngIf='email.errors.email'>
+                                                please enter valid email id
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="mobileno">
+                                            mobileno:
+                                        </label>
+                                        <input type="number" name="mobileno" class="form-control" #mobileno="ngModel"
+                                            [(ngModel)]="singleUsers.mobileno" pattern="[0-9]{10}" required>
+                                        <div *ngIf='mobileno.touched && mobileno.invalid'>
+
+                                            <p class="alert alert-danger" *ngIf='mobileno.errors.required'>
+                                                This field is mandatory
+                                            </p>
+                                            <!-- <p class="alert alert-danger" *ngIf='mobileno.errors.minlength'>
+                                                please enter 10 digit number
+                                            </p> -->
+                                            <p class="alert alert-danger" *ngIf='mobileno.errors.pattern'>
+                                                please enter 10 digit number
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password">
+                                            password:
+                                        </label>
+                                        <input type="text" name="password" class="form-control" #password="ngModel"
+                                            [(ngModel)]="singleUsers.password" minlength="4" required>
+                                        <div *ngIf='password.touched && password.invalid'>
+                                            <p class="alert alert-danger" *ngIf='password.errors.required'>
+                                                please enter valid password
+                                            </p>
+                                            <p class="alert alert-danger" *ngIf='password.errors.minlength'>
+                                                please enter 4 character password
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address">
+                                            address:
+                                        </label>
+                                        <input type="text" name="address" class="form-control" #address="ngModel"
+                                            [(ngModel)]="singleUsers.address" required>
+                                        <div *ngIf='address.touched && address.invalid'>
+                                            <p class="alert alert-danger" *ngIf='address.errors.required'>
+                                                THis field is mandatory
+                                            </p>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="btn-group float-right">
+                                        <button class="btn btn-outline-dark" type="reset">
+                                            Reset
+                                        </button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-outline-dark" type="submit" [disabled]='updateProfile.invalid'>
+                                            Update
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- form code -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+</div>

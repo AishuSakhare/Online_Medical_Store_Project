@@ -1,0 +1,101 @@
+<div class="col-md-4 offset-md-4 mt-4 card card-body border border-dark">
+    <div class="alert alert-danger" *ngIf='error'>
+        {{error.description}}
+    </div>
+
+    <h4>
+        Register here
+    </h4>
+    <hr>
+    <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input class="form-control" type="text" name="name" placeholder="Enter Your Name" #name='ngModel' ngModel
+                required pattern="^[[A-Z]|[a-z]][[A-Z]|[a-z]|\\d|[_]]{7,29}$">
+            <div *ngIf='name.touched && name.invalid'>
+                <p class="alert alert-danger" *ngIf='name.errors.required'>
+                    This field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='name.errors.pattern'>
+                    Dont Start Name with Number or Special Charactrer </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Contact-no">Contact No</label>
+            <input class="form-control" type="number" name="mobileno" id="mobileno" placeholder="Enter Your Mobile no"
+                #mobileno='ngModel' ngModel required pattern="[0-9]{10}">
+
+            <div *ngIf='mobileno.touched && mobileno.invalid'>
+
+                <p class="alert alert-danger" *ngIf='mobileno.errors.required'>
+                    This field is mandatory
+                </p>
+                <!-- <p class="alert alert-danger" *ngIf='mobileno.errors.minlength'>
+                    please enter 10 digit number
+                </p> -->
+                <p class="alert alert-danger" *ngIf='mobileno.errors.pattern'>
+                    please enter 10 digit number
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email ID">Email ID</label>
+            <input class="form-control" type="email" name="email" placeholder="Enter Your Email ID" #email='ngModel'
+                email required ngModel>
+            <div *ngIf='email.touched && email.invalid'>
+                <p class="alert alert-danger" *ngIf='email.errors.required'>
+                    THis field is mandatory
+                </p>
+                <p class="alert alert-danger" *ngIf='email.errors.email'>
+                    please enter valid email id
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" required minlength="4"
+                placeholder="Enter Your password" #password='ngModel' ngModel>
+            <div *ngIf='password.touched && password.invalid'>
+                <p class="alert alert-danger" *ngIf='password.errors.required'>
+                    please enter valid password
+                </p>
+                <p class="alert alert-danger" *ngIf='password.errors.minlength'>
+                    please enter 4 character password
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input class="form-control" type="text" name="address" placeholder="Enter Your address" #address='ngModel'
+                ngModel required>
+            <div *ngIf='address.touched && address.invalid'>
+                <p class="alert alert-danger" *ngIf='address.errors.required'>
+                    THis field is mandatory
+                </p>
+
+            </div>
+
+        </div>
+        <!-- <div class="form-group">
+            <label for="role">Role</label>
+            <input class="form-control" type="text" name="role" placeholder="Enter Your role" #role='ngModel' ngModel>
+        </div> -->
+
+        <div class="float-right">
+
+            <button class=" btn btn-dark" type="submit" [disabled]='registerForm.invalid'>
+                Register
+
+            </button>&nbsp;
+            <button class=" btn btn-dark">
+                Cancel
+
+            </button>
+
+        </div>
+        <br>
+        <br>
+
+        <label for="register">Already have an account <a routerLink="/login">Click Here</a></label>
+    </form>
+</div>
